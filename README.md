@@ -15,8 +15,10 @@ The application is written in PHP Laravel framework and it uses MySQL as a datab
 
 ```
 php artisan migrate
+php artisan db:seed
 ```
 
+Default account login is admin@example.com / admin
 
 ## License
 
