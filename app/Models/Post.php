@@ -16,7 +16,7 @@ class Post extends Model
         'published_at',
     ];
 
-    const fields = [
+    public const fields = [
         'title' => [
             'display_as' => 'Title',
             'type' => 'input',

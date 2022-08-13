@@ -1,5 +1,7 @@
 # Blog
 
+Under development...
+
 ## About
 
 Simple skeleton for future applications. It implements only basic login and dashboard fuctionality and some components.
@@ -14,6 +16,7 @@ The application is written in PHP Laravel framework and it uses MySQL as a datab
 2. Run migrations.
 
 ```
+composer install
 php artisan migrate
 php artisan db:seed
 ```

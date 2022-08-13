@@ -15,9 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin/posts')
-            ->with( 'items', Post::with('user')->get() );
+        return view('admin/posts/index')
+            ->with( 'items', Post::with('user')->get() )
+            ->with( 'fields', Post::fields );
     }
 
     /**
@@ -27,7 +27,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $default_post = new Post();
+        $default_post->title = 'Default title';
+        return view('admin/posts/form')
+            ->with( 'item', $default_post )
+            ->with( 'fields', Post::fields );
     }
 
     /**
