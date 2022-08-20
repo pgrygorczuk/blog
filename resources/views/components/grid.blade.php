@@ -1,9 +1,10 @@
-<table class="table">
+<table {{ $attributes->merge(['class' => 'table']) }}>
 	<thead>
 		<tr>
 			@foreach($fields as $field => $opts)
 				<th>{{ $opts['display_as'] }}</th>
 			@endforeach
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,6 +19,9 @@
 						@endif
 					</td>
 				@endforeach
+				<td>
+					<a href="{{ url()->current().'/'.$item->id.'/edit' }}">Edit</a>
+				</td>
 			</tr>
 		@endforeach
 	</tbody>

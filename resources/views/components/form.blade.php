@@ -1,4 +1,4 @@
-<form method="POST" action="{{$action}}">
+<form method="PUT" action="{{$action}}">
     @foreach($fields as $field => $opts)
         @if($opts['type'] == 'textarea' || $opts['type'] == 'texteditor')
             <x-form.textarea label="{{$opts['display_as']}}" name="{{$field}}">
