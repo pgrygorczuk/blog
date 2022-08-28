@@ -6,17 +6,18 @@ use Illuminate\View\Component;
 
 class Form extends Component
 {
-    public $item, $fields, $action;
+    public $action, $method, $item, $fields;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($action, $item, $fields)
+    public function __construct($action, $method, $item, $fields)
     {
-        $this->action = $action;
-        $this->item = $item;
-        $this->fields = $fields;
+        $this->action   = $action;
+        $this->method   = $method;
+        $this->item     = $item;
+        $this->fields   = $fields;
     }
 
     /**

@@ -18,7 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/admin/posts', PostController::class);
+Route::resource('/admin/posts', PostController::class)
+    ->missing(function(Request $request){
+        return Redirect::route('admin/posts');
+    });
 
 Auth::routes();
 

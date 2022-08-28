@@ -2,6 +2,6 @@
 
 @section('content')
 <div class="container">
-    <x-form action="{{url('admin/posts/store')}}" :item="$item" :fields="$fields"></x-form>
+    <x-form action="{{$form_action}}" method="{{$form_method??'POST'}}" :item="$item" :fields="$fields"></x-form>
 </div>
 @endsection

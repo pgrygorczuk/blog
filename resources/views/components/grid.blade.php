@@ -1,3 +1,6 @@
+<a href="{{ url()->current().'/create' }}" class="btn btn-primary">
+	Add new
+</a>
 <table {{ $attributes->merge(['class' => 'table']) }}>
 	<thead>
 		<tr>
@@ -20,7 +23,12 @@
 					</td>
 				@endforeach
 				<td>
-					<a href="{{ url()->current().'/'.$item->id.'/edit' }}">Edit</a>
+					<a class="btn btn-link" href="{{ url()->current().'/'.$item->id.'/edit' }}">Edit</a>
+					<form method="POST" action="{{ url()->current().'/'.$item->id }}">
+						@csrf
+    					@method("DELETE")
+						<input class="btn btn-link" type="submit" value="Delete">
+					</form>
 				</td>
 			</tr>
 		@endforeach

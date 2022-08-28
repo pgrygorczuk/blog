@@ -17,6 +17,7 @@ The application is written in PHP Laravel framework and it uses MySQL as a datab
 
 ```
 composer install
+npm install
 php artisan migrate
 php artisan db:seed
 ```

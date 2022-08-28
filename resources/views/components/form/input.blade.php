@@ -5,6 +5,10 @@
         </label>
     </div>
     <div class="col-9">
-        <input class="form-control" type="text" id="input-{{$name}}" name="{{$name}}" value="{{$slot}}"></input>
+        <input class="form-control @error($name) is-invalid @enderror"
+            type="text" id="input-{{$name}}" name="{{$name}}" value="{{$slot}}"></input>
+        @error($name)
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 </div>

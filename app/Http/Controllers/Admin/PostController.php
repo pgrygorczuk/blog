@@ -4,18 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    protected $base_url = 'admin/posts';
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //GET
     {
-        return view('admin/posts/index')
+        return view($this->base_url.'/index')
             ->with( 'items', Post::with('user')->get() )
             ->with( 'fields', Post::fields );
     }
@@ -25,13 +28,14 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() //GET
     {
-        $default_post = new Post();
-        $default_post->title = 'Default title';
-        return view('admin/posts/form')
-            ->with( 'item', $default_post )
-            ->with( 'fields', Post::fields );
+        $post = new Post();
+        $post->title = 'Default title';
+        return view($this->base_url.'/form')
+            ->with( 'item', $post )
+            ->with( 'fields', Post::fields )
+            ->with( 'form_action', url($this->base_url));
     }
 
     /**
@@ -40,9 +44,10 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //POST
     {
-        dd($request);
+        $validated = $request->validate(Post::getValidationRules());
+        Post::create($request->all());
     }
 
     /**
@@ -51,9 +56,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $post) //GET
     {
-        //
+        return view($this->base_url.'/show')
+            ->with( 'item', $post );
     }
 
     /**
@@ -62,9 +68,14 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Post $post) //GET
     {
-        //
+        return view($this->base_url.'/form')
+            ->with( 'item', $post )
+            ->with( 'fields', Post::fields )
+            ->with( 'users', User::all() )
+            ->with( 'form_action', url($this->base_url.'/'.$post->id))
+            ->with( 'form_method', 'PATCH');
     }
 
     /**
@@ -74,9 +85,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post) //PUT/PATCH
     {
-        //
+        $validated = $request->validate(Post::getValidationRules());
+        $post->update($request->all());
+        return redirect($this->base_url);
     }
 
     /**
@@ -85,8 +98,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post) //DELETE
     {
-        //
+        $post->delete();
+        return redirect($this->base_url);
     }
 }
